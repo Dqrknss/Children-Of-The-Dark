@@ -11,10 +11,6 @@ public class combatMisc : MonoBehaviour
     public GameObject Sword;
     public GameObject Player;
 
-    public AnimationClip normHit;
-    public AnimationClip upHit;
-    public AnimationClip downHit;
-
     // Start is called before the first frame update
     void Start()
     {
