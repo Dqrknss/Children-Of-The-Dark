@@ -5,7 +5,7 @@ using UnityEngine;
 public class combatMisc : MonoBehaviour
 {
     public bool KeyItemHeld = false;
-    private string KeyItemName;
+    public string KeyItemName;
     private GameObject GMObj;
     public GameObject Overhead;
     public GameObject Sword;
@@ -51,7 +51,7 @@ public class combatMisc : MonoBehaviour
 
         AnimatorStateInfo stateInfo = Sword.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("Player_Melee_Attack") && stateInfo.normalizedTime >= 1f)
+        if (stateInfo.IsName("normal_m1") && stateInfo.normalizedTime >= 1f)
         {
             Sword.GetComponent<Animator>().SetBool("NormHit", false);
         }
@@ -71,12 +71,13 @@ public class combatMisc : MonoBehaviour
         {
             KeyItemHeld = true;
             KeyItemName = collision.gameObject.name;
-            Destroy(collision.gameObject);
+            collision.gameObject.transform.position = new Vector2(9999999999999999999, 999999999999999);
         }
 
         if (collision.gameObject.tag == "TheCore" && KeyItemHeld == true)
         {
             KeyItemHeld = false;
+            KeyItemName = "";
             GMObj.GetComponent<GM>().CoreState += 1;
         }
     }
