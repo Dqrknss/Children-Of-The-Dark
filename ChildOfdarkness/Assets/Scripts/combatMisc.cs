@@ -8,7 +8,13 @@ public class combatMisc : MonoBehaviour
     private string KeyItemName;
     private GameObject GMObj;
     public GameObject Overhead;
-    
+    public GameObject Sword;
+    public GameObject Player;
+
+    public AnimationClip normHit;
+    public AnimationClip upHit;
+    public AnimationClip downHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +24,22 @@ public class combatMisc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (Player.GetComponent<movement>().isGrounded == false && Input.GetKey(KeyCode.S))
+            {
+                Sword.GetComponent<Animator>().SetBool("DownHit", true);
+            }
+            else if (Input.GetKey(KeyCode.W))
+            {
+                Sword.GetComponent<Animator>().SetBool("UpHit", true);
+            }
+            else
+            {
+                Sword.GetComponent<Animator>().SetBool("NormHit", true);
+            }
+        }
+
         if (KeyItemHeld == true)
         {
             Overhead.SetActive(true);
@@ -25,6 +47,21 @@ public class combatMisc : MonoBehaviour
         else if (KeyItemHeld != true)
         {
             Overhead.SetActive(false);
+        }
+
+        AnimatorStateInfo stateInfo = Sword.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("Player_Melee_Attack") && stateInfo.normalizedTime >= 1f)
+        {
+            Sword.GetComponent<Animator>().SetBool("NormHit", false);
+        }
+        if (stateInfo.IsName("Sword_UpHit") && stateInfo.normalizedTime >= 1f)
+        {
+            Sword.GetComponent<Animator>().SetBool("UpHit", false);
+        }
+        if (stateInfo.IsName("sword_DownHit") && stateInfo.normalizedTime >= 1f)
+        {
+            Sword.GetComponent<Animator>().SetBool("DownHit", false);
         }
     }
 
