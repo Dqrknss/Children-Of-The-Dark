@@ -8,7 +8,6 @@ public class combatMisc : MonoBehaviour
     public string KeyItemName;
     private GameObject GMObj;
     public GameObject Overhead;
-    //public GameObject Sword;
     public GameObject Player;
 
     // Start is called before the first frame update
@@ -20,21 +19,13 @@ public class combatMisc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (Player.GetComponent<movement>().isGrounded == false && Input.GetKey(KeyCode.S))
-            {
-                Sword.GetComponent<Animator>().SetBool("DownHit", true);
-            }
-            else if (Input.GetKey(KeyCode.W))
-            {
-                Sword.GetComponent<Animator>().SetBool("UpHit", true);
-            }
-            else
-            {
-                Sword.GetComponent<Animator>().SetBool("NormHit", true);
-            }
-        }*/
+            
+            
+                Player.GetComponent<Animator>().SetBool("NormHit", true);
+            
+        }
 
         if (KeyItemHeld == true)
         {
@@ -45,20 +36,21 @@ public class combatMisc : MonoBehaviour
             Overhead.SetActive(false);
         }
 
-        /*AnimatorStateInfo stateInfo = Sword.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = Player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("normal_m1") && stateInfo.normalizedTime >= 1f)
+        if (stateInfo.IsName("PlayerAttack") && stateInfo.normalizedTime >= 1f)
         {
-            Sword.GetComponent<Animator>().SetBool("NormHit", false);
+            
         }
-        if (stateInfo.IsName("Sword_UpHit") && stateInfo.normalizedTime >= 1f)
+
+        if (Input.GetButton("Fire2"))
         {
-            Sword.GetComponent<Animator>().SetBool("UpHit", false);
+            
         }
-        if (stateInfo.IsName("sword_DownHit") && stateInfo.normalizedTime >= 1f)
+        if (!Input.GetButton("Fire2"))
         {
-            Sword.GetComponent<Animator>().SetBool("DownHit", false);
-        }*/
+            
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -20,17 +20,9 @@ public class damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss" && collision.gameObject.GetComponent<Health>().Immune != true)
         {
             collision.gameObject.GetComponent<Health>().hp -= Dmg;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            
         }
     }
 }

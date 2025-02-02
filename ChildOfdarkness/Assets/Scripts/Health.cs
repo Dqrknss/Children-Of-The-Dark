@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     private string heldFragment;
     private GameObject PlrFragment;
     public GameObject Border;
+    public bool Immune;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class Health : MonoBehaviour
         }
         else if (entity.tag == "Boss")
         {
-            hp = 45;
+            hp = 20;
         }
     }
 
