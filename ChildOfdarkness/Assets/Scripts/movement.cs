@@ -7,6 +7,7 @@ public class movement : MonoBehaviour
     public GameObject player;
     private Rigidbody2D rb;
     private GameObject orb;
+    private Animator anism;
 
     private float MoveSpeed = 10f;
     private float Jump = 0f;
@@ -18,12 +19,23 @@ public class movement : MonoBehaviour
     {
         rb = player.GetComponent<Rigidbody2D>();
         orb = GameObject.Find("FragmentOverhead");
+        anism = player.GetComponent<Animator>();
     }
 
     void Update()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
         Jump = Input.GetAxisRaw("Jump");
+
+        if (xAxis != 0)
+        {
+            anism.SetInteger("MoveSpeed", 1);
+        }
+        else
+        {
+
+            anism.SetInteger("MoveSpeed", 0);
+        }
 
         if (Input.GetKey(KeyCode.A) && direction != "Left")
         {

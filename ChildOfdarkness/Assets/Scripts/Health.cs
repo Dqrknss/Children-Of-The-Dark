@@ -58,8 +58,8 @@ public class Health : MonoBehaviour
             else if (entity.tag == "Boss")
             {
                 Fragment.SetActive(true);
+                Border.SetActive(true);
                 Fragment.transform.position = entity.transform.position;
-                Border.SetActive(false);
                 Destroy(entity);
             }
         }
