@@ -8,7 +8,7 @@ public class combatMisc : MonoBehaviour
     public string KeyItemName;
     private GameObject GMObj;
     public GameObject Overhead;
-    public GameObject Sword;
+    //public GameObject Sword;
     public GameObject Player;
 
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class combatMisc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        /*if (Input.GetButtonDown("Fire1"))
         {
             if (Player.GetComponent<movement>().isGrounded == false && Input.GetKey(KeyCode.S))
             {
@@ -34,7 +34,7 @@ public class combatMisc : MonoBehaviour
             {
                 Sword.GetComponent<Animator>().SetBool("NormHit", true);
             }
-        }
+        }*/
 
         if (KeyItemHeld == true)
         {
@@ -45,7 +45,7 @@ public class combatMisc : MonoBehaviour
             Overhead.SetActive(false);
         }
 
-        AnimatorStateInfo stateInfo = Sword.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+        /*AnimatorStateInfo stateInfo = Sword.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 
         if (stateInfo.IsName("normal_m1") && stateInfo.normalizedTime >= 1f)
         {
@@ -58,7 +58,7 @@ public class combatMisc : MonoBehaviour
         if (stateInfo.IsName("sword_DownHit") && stateInfo.normalizedTime >= 1f)
         {
             Sword.GetComponent<Animator>().SetBool("DownHit", false);
-        }
+        }*/
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

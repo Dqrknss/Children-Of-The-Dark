@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BossAi : MonoBehaviour
 {
-    public GameObject LightBeam;
     public int phase;
     public int location;
     private int hp;
     private int currenthp;
     public int attack;
     public bool attacking;
+    public float dura;
 
-    private float duration = 2f;
+    public GameObject DMGBlock;
 
     public GameObject bossPos1;
     public GameObject bossPos2;
@@ -23,9 +23,8 @@ public class BossAi : MonoBehaviour
     {
         phase = 1;
         attacking = false;
-        location = 1;
-
-        attack = 1;
+        location = 3;
+        hp = gameObject.GetComponent<Health>().hp;
     }
 
 
@@ -33,17 +32,64 @@ public class BossAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hp = gameObject.GetComponent<Health>().hp;
-
-        if (attack == 1 /*&& location == 1 || location == 3*/)
+        if (attacking == false && dura <= 0)
         {
-            LightBeam.SetActive(true);
-            attacking = true;
-            while (LightBeam.activeInHierarchy == true)
+            attack = Random.Range(1, 3);
+
+            if (attack == 1)
             {
-                print("Yippeeee");
+                DMGBlock.SetActive(true);
+                DMGBlock.GetComponent<Animator>().SetBool("Slam", true);
+                dura = 2.5f;
+            }
+            if (attack == 2)
+            {
+                DMGBlock.SetActive(true);
+                DMGBlock.GetComponent<Animator>().SetBool("Push", true);
+                dura = 3f;
+            }
+            if (attack == 3 && location == 2)
+            {
+                DMGBlock.SetActive(true);
+                DMGBlock.GetComponent<Animator>().SetBool("Nova", true);
+                dura = 8f;
             }
         }
+
+        if (location == 1)
+        {
+            Vector3 newScale = gameObject.transform.localScale;
+            newScale.x = -4;
+            gameObject.transform.localScale = newScale;
+            gameObject.transform.position = bossPos1.transform.position;
+        }
+        if (location == 3)
+        {
+            Vector3 newScale = gameObject.transform.localScale;
+            newScale.x = 4;
+            gameObject.transform.localScale = newScale;
+            gameObject.transform.position = bossPos3.transform.position;
+        }
+
+        AnimatorStateInfo stateInfo = DMGBlock.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("BossSlam") && stateInfo.normalizedTime >= 1f)
+        {
+            DMGBlock.GetComponent<Animator>().SetBool("Slam", false);
+            DMGBlock.SetActive(false);
+        }
+        if (stateInfo.IsName("BossPush") && stateInfo.normalizedTime >= 1f)
+        {
+            DMGBlock.GetComponent<Animator>().SetBool("Push", false);
+            DMGBlock.SetActive(false);
+        }
+        if (stateInfo.IsName("BossNova") && stateInfo.normalizedTime >= 1f)
+        {
+            DMGBlock.GetComponent<Animator>().SetBool("Nova", false);
+            DMGBlock.SetActive(false);
+        }
+
+        dura -= Time.deltaTime;
     }
 }
 
