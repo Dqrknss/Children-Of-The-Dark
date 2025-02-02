@@ -8,7 +8,7 @@ public class BeamAttack : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<Health>().Immune != true)
         {
-            collision.gameObject.GetComponent<Health>().hp -= 5;
+            collision.gameObject.GetComponent<Health>().hp -= 1;
         }
     }
 }
